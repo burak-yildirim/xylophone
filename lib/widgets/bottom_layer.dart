@@ -19,7 +19,7 @@ class BottomLayer extends StatelessWidget {
 //        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          color: Colors.brown[700],
+          color: Colors.grey[600],
         ),
         height: 30.0,
       ),
