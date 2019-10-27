@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class BottomLayer extends StatelessWidget {
-  final double rotateDegree;
+  final double rotationDegree;
 
-  BottomLayer({this.rotateDegree = 5});
+  BottomLayer({this.rotationDegree = 5});
+
+  //TODO: implement calculating rotationDegree for different screen sizes (AspectRatio and Align)
 
   double toRadian(double degree) {
     return (math.pi * degree) / 180.0;
@@ -32,11 +34,11 @@ class BottomLayer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        rotatedStick(toRadian(rotateDegree)),
+        rotatedStick(toRadian(rotationDegree)),
         SizedBox(
           height: 140.0,
         ),
-        rotatedStick(toRadian(-rotateDegree), Alignment.bottomLeft),
+        rotatedStick(toRadian(-rotationDegree), Alignment.bottomLeft),
       ],
     );
   }

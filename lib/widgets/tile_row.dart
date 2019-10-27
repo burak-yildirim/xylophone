@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_xylophone/utils/constants.dart';
+import 'package:my_xylophone/widgets/tile.dart';
 
 class TileRow extends StatelessWidget {
   static const _notes = [
@@ -17,33 +18,12 @@ class TileRow extends StatelessWidget {
   static final List<GlobalKey> _keys =
       List<GlobalKey>.generate(8, (ndx) => GlobalKey());
 
-  var tileButton = CircleAvatar(
-    backgroundColor: Colors.grey[400],
-    radius: 10.0,
-  );
-
   Widget makeTile(int index) {
-    return Container(
+    return Tile(
       key: _keys[index],
-      width: 60.0,
       height: 250.0 - (index * 14.5),
-      decoration: BoxDecoration(
-        color: kTileColors[index],
-        borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            tileButton,
-            makeTileText(index),
-            tileButton,
-          ],
-        ),
-      ),
+      color: kTileColors[index],
+      centerWidget: makeTileText(index),
     );
   }
 
@@ -67,13 +47,14 @@ class TileRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Listener(
       onPointerDown: (pointerEnterEvent) {
-        final result = BoxHitTestResult();
-        _keys.forEach((key) {
-          final RenderBox renderBox = key.currentContext.findRenderObject();
-          Offset offset = renderBox.globalToLocal(pointerEnterEvent.position);
-          if (renderBox.hitTest(result, position: offset))
-            print('touch happened!');
-        });
+        print('pointer down in row');
+//        final result = BoxHitTestResult();
+//        _keys.forEach((key) {
+//          final RenderBox renderBox = key.currentContext.findRenderObject();
+//          Offset offset = renderBox.globalToLocal(pointerEnterEvent.position);
+//          if (renderBox.hitTest(result, position: offset))
+//            print('touch on tile!');
+//        });
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
