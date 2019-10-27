@@ -17,13 +17,33 @@ class TileRow extends StatelessWidget {
   static final List<GlobalKey> _keys =
       List<GlobalKey>.generate(8, (ndx) => GlobalKey());
 
+  var tileButton = CircleAvatar(
+    backgroundColor: Colors.grey[400],
+    radius: 10.0,
+  );
+
   Widget makeTile(int index) {
     return Container(
       key: _keys[index],
       width: 60.0,
-      height: 220.0 - (index * 12.0),
-      color: kTileColors[index],
-      child: makeTileText(index),
+      height: 250.0 - (index * 14.5),
+      decoration: BoxDecoration(
+        color: kTileColors[index],
+        borderRadius: BorderRadius.all(
+          Radius.circular(30.0),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            tileButton,
+            makeTileText(index),
+            tileButton,
+          ],
+        ),
+      ),
     );
   }
 
