@@ -21,7 +21,7 @@ class TileRow extends StatelessWidget {
     return Container(
       key: _keys[index],
       width: 60.0,
-      height: 250.0 - (index * 20),
+      height: 220.0 - (index * 12.0),
       color: kTileColors[index],
       child: makeTileText(index),
     );
