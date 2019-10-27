@@ -5,3 +5,13 @@ const kNoteTextStyle = TextStyle(
   fontSize: 20.0,
   color: Colors.white,
 );
+const kTileColors = [
+  Colors.purple,
+  Color(0xff2a54eb),
+  Colors.blue,
+  Colors.green,
+  Color(0xffbbeb2a),
+  Color(0xffe3bd27),
+  Colors.deepOrange,
+  Colors.red,
+];

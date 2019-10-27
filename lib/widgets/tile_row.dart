@@ -3,17 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:my_xylophone/utils/constants.dart';
 
 class TileRow extends StatelessWidget {
-  static final _tileColors = [
-    Colors.purple,
-    Color(0xff2a54eb),
-    Colors.blue,
-    Colors.green,
-    Color(0xffbbeb2a),
-    Colors.yellow[800],
-    Colors.deepOrange,
-    Colors.red,
-  ];
-
   static const _notes = [
     Note('C', 'Do'),
     Note('D', 'Re'),
@@ -33,7 +22,7 @@ class TileRow extends StatelessWidget {
       key: _keys[index],
       width: 60.0,
       height: 250.0 - (index * 20),
-      color: _tileColors[index],
+      color: kTileColors[index],
       child: makeTileText(index),
     );
   }
