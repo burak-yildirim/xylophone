@@ -15,3 +15,4 @@ const kTileColors = [
   Colors.deepOrange,
   Colors.red,
 ];
+const kTransparentColor = Color(0x00000000);
