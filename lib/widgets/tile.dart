@@ -6,6 +6,7 @@ class Tile extends StatelessWidget {
   final double height;
   final Color color;
   final Widget centerWidget;
+  final Function playNote;
 
   final tileButton = CircleAvatar(
     backgroundColor: Colors.grey[400],
@@ -18,6 +19,7 @@ class Tile extends StatelessWidget {
     this.height,
     this.color,
     this.centerWidget,
+    this.playNote,
   }) : super(key: key);
 
   @override

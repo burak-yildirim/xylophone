@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_xylophone/utils/constants.dart';
@@ -23,14 +24,16 @@ class TileRow extends StatefulWidget {
 }
 
 class _TileRowState extends State<TileRow> {
-  Tile lastTouchedTile = Tile();
+  Tile lastTouchedTile = Tile(playNote: () => print('No note assigned!'));
 
   Widget makeTile(int index) {
+    var player = AudioCache();
     return Tile(
       key: TileRow.keys[index],
       height: 250.0 - (index * 14.5),
       color: kTileColors[index],
       centerWidget: makeTileText(index),
+      playNote: () => player.play('note$index.wav'),
     );
   }
 
@@ -71,15 +74,13 @@ class _TileRowState extends State<TileRow> {
         Tile touchedTile = getTouchingTile(tapDownDetails.globalPosition);
         lastTouchedTile = touchedTile;
         if (touchedTile == null) return;
-        print('touchedTile: ${touchedTile.color}');
+        touchedTile.playNote();
       },
       onPanUpdate: (dragUpdateDetails) {
-        //TODO: implement panUpdate
         Tile touchingTile = getTouchingTile(dragUpdateDetails.globalPosition);
-        if (touchingTile != null && lastTouchedTile != touchingTile) {
-          lastTouchedTile = touchingTile;
-          print(touchingTile.color);
-        }
+        if (touchingTile == null || lastTouchedTile == touchingTile) return;
+        lastTouchedTile = touchingTile;
+        touchingTile.playNote();
       },
       child: Container(
         color: kTransparentColor,
