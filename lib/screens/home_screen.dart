@@ -9,20 +9,36 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: kBoardRatio,
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: <Widget>[
-                  BottomLayer(),
-                  TileRow(),
-                ],
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 50.0,
+              ),
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: kBoardRatio,
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: <Widget>[
+                      BottomLayer(),
+                      TileRow(),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FlatButton(
+                color: Colors.green,
+                child: Text('hello'),
+                onPressed: () {},
+              ),
+            ),
+          ],
         ),
       ),
     );
