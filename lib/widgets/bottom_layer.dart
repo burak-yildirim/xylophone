@@ -17,7 +17,7 @@ class BottomLayer extends StatelessWidget {
       angle: radian,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(200.0)),
+          borderRadius: BorderRadius.all(Radius.circular(thickness)),
           color: Colors.grey[600],
         ),
         height: thickness,
