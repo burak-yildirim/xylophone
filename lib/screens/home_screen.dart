@@ -11,12 +11,17 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: <Widget>[
-              BottomLayer(),
-              TileRow(),
-            ],
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: kBoardRatio,
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+                  BottomLayer(),
+                  TileRow(),
+                ],
+              ),
+            ),
           ),
         ),
       ),

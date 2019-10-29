@@ -16,3 +16,4 @@ const kTileColors = [
   Colors.red,
 ];
 const kTransparentColor = Color(0x00000000);
+const kBoardRatio = 12 / 5;

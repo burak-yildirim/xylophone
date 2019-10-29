@@ -28,12 +28,23 @@ class _TileRowState extends State<TileRow> {
 
   Widget makeTile(int index) {
     var player = AudioCache();
-    return Tile(
-      key: TileRow.keys[index],
-      height: 250.0 - (index * 14.5),
-      color: kTileColors[index],
-      centerWidget: makeTileText(index),
-      playNote: () => player.play('note$index.wav'),
+    return Flexible(
+      fit: FlexFit.loose,
+      child: LayoutBuilder(
+        builder: (buildContext, boxConstraints) {
+          double maxHeight = boxConstraints.maxHeight;
+          double maxWidth = boxConstraints.maxWidth;
+          return Tile(
+            key: TileRow.keys[index],
+//          height: 250.0 - (index * 14.5),
+            height: maxHeight - (index * maxHeight * 0.05),
+            width: maxWidth / 1.3,
+            color: kTileColors[index],
+            centerWidget: makeTileText(index),
+            playNote: () => player.play('note$index.wav'),
+          );
+        },
+      ),
     );
   }
 
@@ -49,7 +60,7 @@ class _TileRowState extends State<TileRow> {
     );
   }
 
-  List<Widget> makeTileRow() {
+  List<Widget> makeTileList() {
     return List<Widget>.generate(8, (index) => makeTile(index));
   }
 
@@ -59,7 +70,6 @@ class _TileRowState extends State<TileRow> {
     TileRow.keys.forEach((tileKey) {
       final RenderBox renderBox = tileKey.currentContext.findRenderObject();
       Offset offset = renderBox.globalToLocal(globalPosition);
-      //TODO: implement holding the hovered tile in a variable
       if (renderBox.hitTest(result, position: offset)) {
         touchedTile = tileKey.currentWidget;
       }
@@ -87,7 +97,7 @@ class _TileRowState extends State<TileRow> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: makeTileRow(),
+          children: makeTileList(),
         ),
       ),
     );
@@ -99,14 +109,3 @@ class Note {
   final String value;
   const Note(this.letter, this.value);
 }
-
-/*
-onPointerDown: (pointerDownEvent) {
-        //TODO: implement single tap on tile
-        handleRowTouch(pointerDownEvent);
-      },
-      onPointerMove: (pointerMoveEvent) {
-        print('pointer down in row');
-        handleRowTouch(pointerMoveEvent);
-      },
-*/
