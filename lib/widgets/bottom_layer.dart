@@ -12,7 +12,6 @@ class BottomLayer extends StatelessWidget {
 
   Widget makeRotatedStick(double radian,
       {double thickness = 30.0, Alignment alignment = Alignment.topLeft}) {
-    //TODO: handle rotatedStick height by ratio
     return Transform.rotate(
       alignment: alignment,
       angle: radian,
