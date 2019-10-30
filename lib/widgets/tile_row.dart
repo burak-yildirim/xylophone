@@ -1,8 +1,10 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:my_xylophone/models/note_visibility.dart';
 import 'package:my_xylophone/utils/constants.dart';
 import 'package:my_xylophone/widgets/tile.dart';
+import 'package:provider/provider.dart';
 
 class TileRow extends StatefulWidget {
   static const notes = [
@@ -26,7 +28,7 @@ class TileRow extends StatefulWidget {
 class _TileRowState extends State<TileRow> {
   Tile lastTouchedTile = Tile(playNote: () => print('No note assigned!'));
 
-  Widget makeTile(int index) {
+  Widget makeTile(int index, bool isNoteVisible) {
     var player = AudioCache();
     return Flexible(
       fit: FlexFit.loose,
@@ -36,11 +38,10 @@ class _TileRowState extends State<TileRow> {
           double maxWidth = boxConstraints.maxWidth;
           return Tile(
             key: TileRow.keys[index],
-//          height: 250.0 - (index * 14.5),
             height: maxHeight - (index * maxHeight * 0.05),
             width: maxWidth / 1.3,
             color: kTileColors[index],
-            centerWidget: makeTileText(index),
+            centerWidget: isNoteVisible ? makeTileText(index) : Container(),
             playNote: () => player.play('note$index.wav'),
           );
         },
@@ -60,8 +61,8 @@ class _TileRowState extends State<TileRow> {
     );
   }
 
-  List<Widget> makeTileList() {
-    return List<Widget>.generate(8, (index) => makeTile(index));
+  List<Widget> makeTileList(bool isNoteVisible) {
+    return List<Widget>.generate(8, (index) => makeTile(index, isNoteVisible));
   }
 
   Tile getTouchingTile(Offset globalPosition) {
@@ -94,11 +95,14 @@ class _TileRowState extends State<TileRow> {
       },
       child: Container(
         color: kTransparentColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: makeTileList(),
-        ),
+        child: Consumer<NoteVisibility>(
+            builder: (buildContext, noteVisibility, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: makeTileList(noteVisibility.isVisible),
+          );
+        }),
       ),
     );
   }
