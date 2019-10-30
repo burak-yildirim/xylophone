@@ -40,7 +40,16 @@ class HomeScreen extends StatelessWidget {
                   builder: (buildContext) {
                     return FlatButton(
                       color: Colors.green,
-                      child: Text('hello'),
+                      child: Consumer<NoteVisibility>(
+                        builder: (ctx, noteVisibility, child) {
+                          return Text(
+                            noteVisibility.isVisible ? 'Hide' : 'Show',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          );
+                        },
+                      ),
                       onPressed: () {
                         Provider.of<NoteVisibility>(buildContext)
                             .toggleVisibility();
