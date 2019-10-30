@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 const kBackgroundColor = Color(0xfffceed2);
-const kNoteTextStyle = TextStyle(
-  fontSize: 20.0,
-  color: Colors.white,
-);
 const kTileColors = [
   Colors.purple,
   Color(0xff2a54eb),

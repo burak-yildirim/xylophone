@@ -44,7 +44,7 @@ class _TileRowState extends State<TileRow> {
                 width: maxWidth / 1.3,
                 color: kTileColors[index],
                 centerWidget: noteVisibility.isVisible
-                    ? makeTileText(index)
+                    ? makeTileText(index, maxWidth / 3.5)
                     : Container(),
                 playNote: () => player.play('note$index.wav'),
               );
@@ -55,13 +55,18 @@ class _TileRowState extends State<TileRow> {
     );
   }
 
-  Widget makeTileText(int index) {
+  Widget makeTileText(int index, double fontSize) {
+    var style = TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: fontSize,
+      color: Colors.white,
+    );
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(TileRow.notes[index].letter, style: kNoteTextStyle),
-          Text(TileRow.notes[index].value, style: kNoteTextStyle),
+          Text(TileRow.notes[index].letter, style: style),
+          Text(TileRow.notes[index].value, style: style),
         ],
       ),
     );
