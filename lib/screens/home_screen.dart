@@ -33,9 +33,17 @@ class HomeScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: IconButton(
-                icon: Icon(Icons.settings, color: kBottomStickColor),
-                onPressed: () => SettingsScreen.show(context),
+              child: SizedBox(
+                width: kBoardRatio * 20,
+                height: kBoardRatio * 20,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: kBottomStickColor,
+                    size: kBoardRatio * 20,
+                  ),
+                  onPressed: () => SettingsScreen.show(context),
+                ),
               ),
             ),
           ],
