@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:my_xylophone/utils/constants.dart';
+
 class BottomLayer extends StatelessWidget {
   final double rotationDegree;
 
@@ -18,7 +20,7 @@ class BottomLayer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(thickness)),
-          color: Colors.grey[600],
+          color: kBottomStickColor,
         ),
         height: thickness,
       ),

@@ -13,3 +13,4 @@ const kTileColors = [
 ];
 const kTransparentColor = Color(0x00000000);
 const kBoardRatio = 12 / 5;
+const kBottomStickColor = Color(0xff7d7b75);
