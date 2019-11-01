@@ -34,13 +34,13 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: SizedBox(
-                width: kBoardRatio * 20,
-                height: kBoardRatio * 20,
+                width: MediaQuery.of(context).size.width * 0.07,
+                height: MediaQuery.of(context).size.width * 0.07,
                 child: IconButton(
                   icon: Icon(
                     Icons.settings,
                     color: kBottomStickColor,
-                    size: kBoardRatio * 20,
+                    size: MediaQuery.of(context).size.width * 0.07,
                   ),
                   onPressed: () => SettingsScreen.show(context),
                 ),
