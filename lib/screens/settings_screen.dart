@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_xylophone/models/note_visibility.dart';
+import 'package:my_xylophone/models/settings.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends SimpleDialog {
@@ -9,13 +9,12 @@ class SettingsScreen extends SimpleDialog {
           children: <Widget>[
             SimpleDialogOption(
               onPressed: () {
-                Provider.of<NoteVisibility>(context).toggleVisibility();
+                Provider.of<Settings>(context).toggleNoteVisibility();
               },
-              child: Consumer<NoteVisibility>(
-                builder: (ctx, noteVisibility, child) {
-                  noteVisibility = Provider.of<NoteVisibility>(context);
+              child: Consumer<Settings>(
+                builder: (ctx, settings, child) {
                   return Text(
-                    noteVisibility.isVisible ? 'Hide' : 'Show',
+                    settings.isNoteVisible ? 'Hide' : 'Show',
                     style: TextStyle(
                       color: Colors.black,
                     ),

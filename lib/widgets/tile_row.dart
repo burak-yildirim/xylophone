@@ -1,7 +1,7 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:my_xylophone/models/note_visibility.dart';
+import 'package:my_xylophone/models/settings.dart';
 import 'package:my_xylophone/utils/constants.dart';
 import 'package:my_xylophone/widgets/tile.dart';
 import 'package:provider/provider.dart';
@@ -36,14 +36,14 @@ class _TileRowState extends State<TileRow> {
         builder: (buildContext, boxConstraints) {
           double maxHeight = boxConstraints.maxHeight;
           double maxWidth = boxConstraints.maxWidth;
-          return Consumer<NoteVisibility>(
-            builder: (ctx, noteVisibility, child) {
+          return Consumer<Settings>(
+            builder: (ctx, settings, child) {
               return Tile(
                 key: TileRow.keys[index],
                 height: maxHeight - (index * maxHeight * 0.05),
                 width: maxWidth / 1.3,
                 color: kTileColors[index],
-                centerWidget: noteVisibility.isVisible
+                centerWidget: settings.isNoteVisible
                     ? makeTileText(index, maxWidth / 3.5)
                     : Container(),
                 playNote: () => player.play('note$index.wav'),

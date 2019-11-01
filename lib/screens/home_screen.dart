@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_xylophone/models/note_visibility.dart';
 import 'package:my_xylophone/screens/settings_screen.dart';
 import 'package:my_xylophone/utils/constants.dart';
 import 'package:my_xylophone/widgets/bottom_layer.dart';
 import 'package:my_xylophone/widgets/tile_row.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
