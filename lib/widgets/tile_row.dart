@@ -1,4 +1,5 @@
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_xylophone/models/settings.dart';
@@ -30,6 +31,7 @@ class _TileRowState extends State<TileRow> {
 
   Widget makeTile(int index) {
     var player = AudioCache();
+    player.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
     return Flexible(
       fit: FlexFit.loose,
       child: LayoutBuilder(
@@ -46,7 +48,9 @@ class _TileRowState extends State<TileRow> {
                 centerWidget: settings.isNoteVisible
                     ? makeTileText(index, maxWidth / 3.5)
                     : Container(),
-                playNote: () => player.play('note$index.wav'),
+                playNote: () => player.play(
+                  'note$index.wav',
+                ),
               );
             },
           );
