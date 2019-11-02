@@ -59,7 +59,7 @@ class _TileRowState extends State<TileRow> {
     var style = TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: fontSize,
-      color: Colors.white,
+      color: Color(0x56000000),
     );
     return Center(
       child: Column(
