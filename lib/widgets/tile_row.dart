@@ -1,7 +1,6 @@
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:my_xylophone/models/note_player.dart';
 import 'package:my_xylophone/models/settings.dart';
 import 'package:my_xylophone/utils/constants.dart';
 import 'package:my_xylophone/widgets/tile.dart';
@@ -19,19 +18,18 @@ class TileRow extends StatefulWidget {
     Note('C', 'Do'),
   ];
 
-  static final List<GlobalKey> keys =
-      List<GlobalKey>.generate(8, (ndx) => GlobalKey());
+  static final keys = List<GlobalKey>.generate(8, (ndx) => GlobalKey());
 
   @override
   _TileRowState createState() => _TileRowState();
 }
 
 class _TileRowState extends State<TileRow> {
-  Tile lastTouchedTile = Tile(playNote: () => print('No note assigned!'));
+  Tile lastTouchedTile;
 
   Widget makeTile(int index) {
-    var player = AudioCache();
-    player.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+    var player = NotePlayer(index);
+    player.load();
     return Flexible(
       fit: FlexFit.loose,
       child: LayoutBuilder(
@@ -48,9 +46,7 @@ class _TileRowState extends State<TileRow> {
                 centerWidget: settings.isNoteVisible
                     ? makeTileText(index, maxWidth / 3.5)
                     : Container(),
-                playNote: () => player.play(
-                  'note$index.wav',
-                ),
+                playNote: () => player.play(),
               );
             },
           );
@@ -82,14 +78,18 @@ class _TileRowState extends State<TileRow> {
 
   Tile getTouchingTile(Offset globalPosition) {
     Tile touchedTile;
+    // result is outside of [isTouchingTileKey] for performance
     final result = BoxHitTestResult();
-    TileRow.keys.forEach((tileKey) {
-      final RenderBox renderBox = tileKey.currentContext.findRenderObject();
+
+    bool isTouchingTileKey(GlobalKey key) {
+      final RenderBox renderBox = key.currentContext.findRenderObject();
       Offset offset = renderBox.globalToLocal(globalPosition);
-      if (renderBox.hitTest(result, position: offset)) {
-        touchedTile = tileKey.currentWidget;
-      }
-    });
+      return renderBox.hitTest(result, position: offset);
+    }
+
+    var key = TileRow.keys.firstWhere(isTouchingTileKey, orElse: () => null);
+    if (key != null) touchedTile = key.currentWidget;
+
     return touchedTile;
   }
 
@@ -99,14 +99,14 @@ class _TileRowState extends State<TileRow> {
       onTapDown: (tapDownDetails) {
         Tile touchedTile = getTouchingTile(tapDownDetails.globalPosition);
         lastTouchedTile = touchedTile;
-        if (touchedTile == null) return;
-        touchedTile.playNote();
+        if (touchedTile != null) touchedTile.playNote();
       },
       onPanUpdate: (dragUpdateDetails) {
-        Tile touchingTile = getTouchingTile(dragUpdateDetails.globalPosition);
-        if (touchingTile == null || lastTouchedTile == touchingTile) return;
+        var touchingTile = getTouchingTile(dragUpdateDetails.globalPosition);
+        if (lastTouchedTile == touchingTile) return;
+
         lastTouchedTile = touchingTile;
-        touchingTile.playNote();
+        if (touchingTile != null) touchingTile.playNote();
       },
       child: Container(
         color: kTransparentColor,
