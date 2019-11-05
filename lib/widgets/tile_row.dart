@@ -28,7 +28,7 @@ class _TileRowState extends State<TileRow> {
   Tile lastTouchedTile;
 
   Widget makeTile(int index) {
-    var player = NotePlayer(index);
+    var player = NotePlayer('note$index.wav');
     player.load();
     return Flexible(
       fit: FlexFit.loose,

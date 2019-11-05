@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -6,12 +5,11 @@ class NotePlayer {
   AudioCache _audioCache;
   String _soundFile;
 
-  NotePlayer(int index) {
-    _soundFile = 'note$index.wav';
-    _init();
+  NotePlayer(this._soundFile) {
+    _build();
   }
 
-  void _init() {
+  void _build() {
     var audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY)
       ..setReleaseMode(ReleaseMode.STOP);
     _audioCache = AudioCache(fixedPlayer: audioPlayer);
@@ -24,15 +22,17 @@ class NotePlayer {
   Future<void> play() async {
     try {
       await _audioCache.play(_soundFile);
-    } on PlatformException catch (ex) {
-      print('Caught exception: $ex');
-      _init();
-      await load();
-      print('re-loaded');
-      _audioCache.play(_soundFile);
     } catch (ex, st) {
       print('Exception occured: $ex');
       print('StackTrace: $st');
+      _audioCache.fixedPlayer
+        ..release()
+        ..dispose();
+      print('\nrebuilding..');
+      _build();
+      await load();
+      print('re-loaded');
+      _audioCache.play(_soundFile);
     }
   }
 }
