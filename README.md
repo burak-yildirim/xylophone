@@ -4,7 +4,7 @@ Simple xylophone application with good quality sound. May not be up-to-date with
 
 ## Download App
 _The app only has android version on the market currently._
-* [Android](https://www.google.com)
+* [Android](https://play.google.com/store/apps/details?id=com.buraky.my_xylophone)
 
 ## Images
 Phone samples:
